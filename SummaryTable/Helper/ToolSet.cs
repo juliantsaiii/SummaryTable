@@ -14,6 +14,7 @@ namespace SummaryTable.Helper
         /// 用于展示提示信息
         /// </summary>
         public static string information = "";
+        public static string workinfo = "";
 
         /// <summary>
         /// 文件信息集合
@@ -86,20 +87,40 @@ namespace SummaryTable.Helper
         /// 抓取word中的文本信息并汇总至表格内
         /// </summary>
         /// <param name="wordlist"></param>
-        public static void StartSummary(List<FileInfo> wordlist)
+        public static string StartSummary(List<FileInfo> wordlist)
         {
+            workinfo = "\r\n详情：\r\n";
             WordHelper wordHelper = new WordHelper();
             List<ReportTemplate> reportlist = new List<ReportTemplate>();//报告抓取结果集合
+            int SuccessCount = 1,ErrorCount = 0;
             foreach (FileInfo wordinfo in wordlist)
             {
-                wordHelper.OpenWord(wordinfo.FullName);
-                string wordContent = wordHelper.getWordContent();
-                if (wordContent.Length > 10)//过滤打开的运行时文件或不正常文件
+                try
                 {
-                    ReportTemplate report = GetEntityValue(wordContent);
-                    reportlist.Add(report);
+                    wordHelper.OpenWord(wordinfo.FullName);
+                    string wordContent = wordHelper.getWordContent();
+                    wordContent = wordContent.Replace("\n", "").Replace(" ", "").Replace("\t", "").Replace("\r", "");//去除字符串中的空格，回车，换行符，制表符
+                    if (wordContent.Length > 10)//过滤打开的运行时文件或不正常文件
+                    {
+                        ReportTemplate report = GetEntityValue(wordContent);
+                        report.ID = SuccessCount.ToString();//ID作为计数器使用
+                        reportlist.Add(report);
+                        workinfo += $"{SuccessCount}:{wordinfo.Name}报告制作成功\r\n";
+                        SuccessCount++;
+                    }
+                }
+                catch (Exception e)
+                {
+                    ErrorCount++;
+                    workinfo += $"*****{ErrorCount}:{wordinfo.Name}报告制作失败\r\n";
                 }
             }
+
+            workinfo += $"\r\n结果：\r\n所选择的文件夹目录下共有{wordlist.Count()}份报告（.doc,.docx结尾）\r\n" +
+                        $"{SuccessCount-1}份成功汇总至项目统计表；\r\n" +
+                        $"{ErrorCount}份制作失败未汇总至项目统计表；\r\n" +
+                        $"\r\n如制作失败，请查看上方列表中的错误提示“*****” ，生成期间请确保所有文档已关闭，防止被占用而读取失败\r\n";
+            return workinfo;
         }
         /// <summary>
         /// 抓取字符串中的有效信息并赋值给实体类
@@ -109,12 +130,13 @@ namespace SummaryTable.Helper
         public static ReportTemplate GetEntityValue(string content)
         {
             ReportTemplate report = new ReportTemplate();
-
             report.Code = GetUsefulContent.getCode(content);
             report.ValueTime = GetUsefulContent.getValueTime(content);
             report.Customer = GetUsefulContent.getCustomer(content);
-
-
+            report.Location = GetUsefulContent.getLocation(content);
+            report.ArchitecherArea = GetUsefulContent.getArchitecherArea(content);
+            report.SingleValue = GetUsefulContent.getSingleValue(content);
+            report.TotalValue = GetUsefulContent.getTotalValue(content);
             return report;
         }
 

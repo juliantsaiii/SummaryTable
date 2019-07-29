@@ -49,7 +49,7 @@ namespace SummaryTable
             //获取所有类型的文件
             List<FileInfo> fileNames = ToolSet.TogetFile(this.textBox1.Text,2);
 
-            this.textBox2.AppendText("该文件下包含以下Word文档：\r\n");
+            this.textBox2.AppendText("目录包含以下Word报告：\r\n");
             foreach (FileInfo fileName in fileNames)
             {
                 //过滤非文档类型的文件
@@ -62,7 +62,8 @@ namespace SummaryTable
             this.textBox2.AppendText($"共计{wordlist.Count()}个\r\n");
 
             //调用汇总方法
-            ToolSet.StartSummary(wordlist);
+            string workinfo = ToolSet.StartSummary(wordlist);
+            this.textBox2.AppendText(workinfo);
             //this.textBox2.AppendText(ToolSet.information);
         }
 

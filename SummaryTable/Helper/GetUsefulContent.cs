@@ -85,7 +85,7 @@ namespace SummaryTable.Helper
         /// 评估编号
         /// </summary>
         public static string getCode(string content){
-            string result = CommonMethod(content, "\r致估价委托人函\r", 21);
+            string result = CommonMethod(content, "致估价委托人函", 21);
             return result;
         }
         /// <summary>
@@ -100,8 +100,8 @@ namespace SummaryTable.Helper
         /// 委托方名称
         /// </summary>
         public static string getCustomer(string content){
-            string result = FindByRegex(content, @"[\r\n][^人]{2,3}：");//工商模板
-            result = result.Replace("\r","").Replace("：","");
+            string result = FindByRegex(content, @"号[^人]{2,3}：");//工商模板
+            result = result.Replace("\r","").Replace("：","").Replace("号","");
             if (string.IsNullOrWhiteSpace(result))
             {
                 result = FindByRegex(content, @"对[\u4e00-\u9fa5]{2,3}所属");//中信模板
@@ -114,40 +114,31 @@ namespace SummaryTable.Helper
         /// </summary>
         public static string getLocation(string content){
             string result = FindByRegex(content, @"位于.{10,40}住宅房地产");
-            result.Replace("位于", "").Replace("住宅房地产", "");
+            result = result.Replace("位于", "").Replace("住宅房地产", "");
             return result;
         }
         /// <summary>
         /// 建筑面积
         /// </summary>
         public static string getArchitecherArea(string content){
-            string result = "";
-            int StartIndex = -1, EndIndex = -1, Length = 0;
-            StartIndex += content.IndexOf(Environment.NewLine.ToCharArray() + "致估价委托人函");
-            Length = StartIndex + 23;
-            result = content.Substring(StartIndex, Length);
+            string result = FindByRegex(content, @"建筑面积为.{2,7}平方米");
+            result = result.Replace("建筑面积为", "").Replace("平方米", "");
             return result;
         }
         /// <summary>
         /// 评估单价
         /// </summary>
         public static string getSingleValue(string content){
-            string result = "";
-            int StartIndex = -1, EndIndex = -1, Length = 0;
-            StartIndex += content.IndexOf(Environment.NewLine.ToCharArray() + "致估价委托人函");
-            Length = StartIndex + 23;
-            result = content.Substring(StartIndex, Length);
+            string result = FindByRegex(content, @"单位面积价格为\d{2,7}元/m2");
+            result = result.Replace("单位面积价格为", "").Replace("元/m2", "");
             return result;
         }
         /// <summary>
-        /// 评估总价
+        /// 评估总价 房地产市场价值为202万元
         /// </summary>
         public static string getTotalValue(string content){
-            string result = "";
-            int StartIndex = -1, EndIndex = -1, Length = 0;
-            StartIndex += content.IndexOf(Environment.NewLine.ToCharArray() + "致估价委托人函");
-            Length = StartIndex + 23;
-            result = content.Substring(StartIndex, Length);
+            string result = FindByRegex(content, @"房地产市场价值为\d{2,7}万元");
+            result = result.Replace("房地产市场价值为", "").Replace("万元", "");
             return result;
         }
     }
