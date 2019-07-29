@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SummaryTable.Helper
 {
@@ -22,16 +23,39 @@ namespace SummaryTable.Helper
             DataTable dt = listHelper.ToDataTable(reportlist);
             //D:\GitHub_Archive\SummaryTable\SummaryTable\bin\Debug
             string basepath = Directory.GetCurrentDirectory();
-            string path = @"{}basepath\SummaryTemplate.xlsx";
+            string path = $"{basepath}\\SummaryTemplate.xlsx";
             WorkbookDesigner designer = new WorkbookDesigner();
             designer.Open(path);
             designer.SetDataSource(dt);
             //根据数据源处理生成报表内容
             designer.Process();
+
             //保存Excel文件
-            //string fileToSave = Server.MapPath("~/UploadFiles/Upload");
-            //string filename = "党风室详情表- " + DateTime.Now.ToString("yyyyMMddhhmmss") + ".xls";
-            //designer.Save(Server.MapPath("/UploadFiles/Upload/") + filename, FileFormatType.Excel2003);
+            string fileToSave = GetFilePath();
+            string filename = "项目统计表-江宁分公司- " + DateTime.Now.ToString("yyyyMMddhhmmss") + ".xls";
+            string fullpath = fileToSave + "\\" + filename;//完整路径
+            designer.Save(fullpath, FileFormatType.Excel2003);
+
+            if(MessageBox.Show("已为您保存至:" + fullpath + "\r\n是否立即打开？", "保存成功！", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+            {
+                System.Diagnostics.Process.Start(fullpath);
+            }
+        }
+
+        /// <summary>
+        /// 选择汇总表保存路径
+        /// </summary>
+        /// <returns></returns>
+        private static string GetFilePath()
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            dialog.Description = "请选报告保存路径";
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                string foldPath = dialog.SelectedPath;
+                return foldPath;
+            }
+            return "";
         }
     }
 }
