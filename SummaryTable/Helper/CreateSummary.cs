@@ -35,9 +35,11 @@ namespace SummaryTable.Helper
             string filename = "项目统计表-江宁分公司- " + DateTime.Now.ToString("yyyyMMddhhmmss") + ".xls";
             string fullpath = fileToSave + "\\" + filename;//完整路径
             designer.Save(fullpath, FileFormatType.Excel2003);
-
+            
+            //提示“保存成功，是否立即打开”
             if(MessageBox.Show("已为您保存至:" + fullpath + "\r\n是否立即打开？", "保存成功！", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
             {
+                //调用系统进程打开文件
                 System.Diagnostics.Process.Start(fullpath);
             }
         }
