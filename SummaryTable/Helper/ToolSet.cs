@@ -115,6 +115,8 @@ namespace SummaryTable.Helper
                     workinfo += $"*****{ErrorCount}:{wordinfo.Name}报告制作失败\r\n";
                 }
             }
+            //开始导出报告
+            CreateSummary.StartCreate(reportlist);
 
             workinfo += $"\r\n结果：\r\n所选择的文件夹目录下共有{wordlist.Count()}份报告（.doc,.docx结尾）\r\n" +
                         $"{SuccessCount-1}份成功汇总至项目统计表；\r\n" +
