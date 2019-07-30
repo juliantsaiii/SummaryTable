@@ -42,6 +42,7 @@
       <HintPath>Lib\Aspose.Words.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -60,6 +61,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helper\AppConfigurer.cs" />
     <Compile Include="Helper\CreateSummary.cs" />
     <Compile Include="Helper\GetUsefulContent.cs" />
     <Compile Include="Helper\ListToDataTableHelper.cs" />
@@ -92,7 +94,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Lib\Aspose.Cells.dll" />

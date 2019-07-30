@@ -132,6 +132,19 @@ namespace SummaryTable.Helper
         public static ReportTemplate GetEntityValue(string content)
         {
             ReportTemplate report = new ReportTemplate();
+            HouseConfigHelper.ReadConfig();//读取配置文件信息
+            //固定信息回填
+            report.IssuanceDate = HouseConfigHelper.IssuanceDate;
+            report.ProjectProperty = HouseConfigHelper.ProjectProperty;
+            report.PurposeOfValuation = HouseConfigHelper.PurposeOfValuation;
+            report.MethodOfValuation = HouseConfigHelper.MethodOfValuation;
+            report.LandArea = HouseConfigHelper.LandArea;
+            report.Auditors = HouseConfigHelper.Auditors;
+            report.Evaluator = HouseConfigHelper.Evaluator;
+            report.Valuer = HouseConfigHelper.Valuer;
+            report.ProjectUndertaker = HouseConfigHelper.ProjectUndertaker;
+            report.ProjectSource = HouseConfigHelper.ProjectSource;
+            //抓取信息回填
             report.Code = GetUsefulContent.getCode(content);
             report.ValueTime = GetUsefulContent.getValueTime(content);
             report.Customer = GetUsefulContent.getCustomer(content);

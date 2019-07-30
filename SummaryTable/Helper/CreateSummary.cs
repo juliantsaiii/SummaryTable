@@ -21,7 +21,6 @@ namespace SummaryTable.Helper
             //将list集合转为DataTable方便模板方法使用
             ListToDataTableHelper listHelper = new ListToDataTableHelper();
             DataTable dt = listHelper.ToDataTable(reportlist);
-            //D:\GitHub_Archive\SummaryTable\SummaryTable\bin\Debug
             string basepath = Directory.GetCurrentDirectory();
             string path = $"{basepath}\\SummaryTemplate.xlsx";
             WorkbookDesigner designer = new WorkbookDesigner();
