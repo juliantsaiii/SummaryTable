@@ -53,11 +53,11 @@ namespace SummaryTable
             //获取所有类型的文件
             List<FileInfo> fileNames = ToolSet.TogetFile(this.textBox1.Text,2);
 
-            this.textBox2.AppendText("目录包含以下Word报告：\r\n");
+            this.textBox2.AppendText("目录包含以下Word评估报告：\r\n");
             foreach (FileInfo fileName in fileNames)
             {
                 //过滤非评估报告类的文件
-                if (fileName.Extension.Contains("doc")&&(fileName.Name.Contains(RuleConfigHelper.FileName1) || fileName.Name.Contains(RuleConfigHelper.FileName2)))
+                if (fileName.Extension.Contains("doc")&&(fileName.Name.ToUpper().Contains(RuleConfigHelper.FileName1) || fileName.Name.ToUpper().Contains(RuleConfigHelper.FileName2)))
                 {
                     this.textBox2.AppendText(" -- "+fileName.Name + "\r\n");
                     wordlist.Add(fileName);
