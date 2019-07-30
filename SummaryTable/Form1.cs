@@ -44,7 +44,11 @@ namespace SummaryTable
         /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
-            //wordlist用于存储word文档文件信息集合
+            //得到报告筛选规则
+            RuleConfigHelper ruleConfigHelper = new RuleConfigHelper();
+            RuleConfigHelper.ReadConfig();
+
+            //wordlist用于存储评估报告文档文件信息集合
             List<FileInfo> wordlist = new List<FileInfo>();
             //获取所有类型的文件
             List<FileInfo> fileNames = ToolSet.TogetFile(this.textBox1.Text,2);
@@ -52,8 +56,8 @@ namespace SummaryTable
             this.textBox2.AppendText("目录包含以下Word报告：\r\n");
             foreach (FileInfo fileName in fileNames)
             {
-                //过滤非文档类型的文件
-                if (fileName.Extension.Contains("doc"))
+                //过滤非评估报告类的文件
+                if (fileName.Extension.Contains("doc")&&(fileName.Name.Contains(RuleConfigHelper.FileName1) || fileName.Name.Contains(RuleConfigHelper.FileName2)))
                 {
                     this.textBox2.AppendText(" -- "+fileName.Name + "\r\n");
                     wordlist.Add(fileName);

@@ -125,7 +125,7 @@ namespace SummaryTable.Helper
             return workinfo;
         }
         /// <summary>
-        /// 抓取字符串中的有效信息并赋值给实体类
+        /// 抓取字符串中或配置中的有效信息并赋值给实体类
         /// </summary>
         /// <param name="content">word字符流</param>
         /// <returns></returns>

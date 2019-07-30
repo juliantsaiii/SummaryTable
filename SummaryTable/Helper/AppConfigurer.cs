@@ -67,5 +67,26 @@ namespace SummaryTable.Helper
             ProjectSource = ConfigurationManager.AppSettings["ProjectSource"];
         }
     }
+    public class RuleConfigHelper
+    {
+        //以下条件为或条件
+        /// <summary>
+        /// 查询规则1
+        /// </summary>
+        public static string FileName1 { get; set; }
+        /// <summary>
+        /// 查询规则2
+        /// </summary>
+        public static string FileName2 { get; set; }
+
+        /// <summary>
+        /// 初始化读取配置文件信息
+        /// </summary>
+        public static void ReadConfig()
+        {
+            FileName1 = ConfigurationManager.AppSettings["FileName1"];
+            FileName2 = ConfigurationManager.AppSettings["FileName2"];
+        }
+    }
 }
 
