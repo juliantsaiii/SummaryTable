@@ -24,7 +24,7 @@ namespace SummaryTable.Helper
         {
             if (content.IndexOf(StartChars) < 0)
             {
-                return "未能找到";
+                return "";
             }
             int StartIndex = content.IndexOf(StartChars) + (StartChars).Length;
 
@@ -48,23 +48,7 @@ namespace SummaryTable.Helper
             string[] content = OriginTime.Split(separators);
             string YYYY = content[0];
             string MM = content[1];
-            if (content[1].IndexOf("0") >= 0)
-            {
-                MM = content[1].Replace("0","");
-            }
             string DD = content[2];
-            if (content[2].Length > 1)
-            {
-                char[] temp = content[2].ToCharArray();
-                if (temp[0] == '0')
-                {
-                    DD = content[2].Replace("0","");
-                }
-            }
-            if (content[2].IndexOf('0') > 0 && content[2].IndexOf('1') < 0 && content[2].IndexOf('2') < 0 && content[2].IndexOf('3') < 0)
-            {
-                DD = content[2].Replace("0", "");
-            }
             return YYYY + "/" + MM + "/" + DD;
         }
 
@@ -89,7 +73,7 @@ namespace SummaryTable.Helper
             result = result.Replace("估价报告编号：", "").Replace("估价项目名称", "");
             if (string.IsNullOrWhiteSpace(result))
             {
-                result = CommonMethod(content, "致估价委托人函", 21);
+                result = CommonMethod(content, "致估价委托人函", 21);//小报告
             }
             return result;
         }
