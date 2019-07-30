@@ -85,7 +85,12 @@ namespace SummaryTable.Helper
         /// 评估编号
         /// </summary>
         public static string getCode(string content){
-            string result = CommonMethod(content, "致估价委托人函", 21);
+            string result = FindByRegex(content, @"估价报告编号：.{1,25}估价项目名称");//大报告模板
+            result = result.Replace("估价报告编号：", "").Replace("估价项目名称", "");
+            if (string.IsNullOrWhiteSpace(result))
+            {
+                result = CommonMethod(content, "致估价委托人函", 21);
+            }
             return result;
         }
         /// <summary>
@@ -100,12 +105,18 @@ namespace SummaryTable.Helper
         /// 委托方名称
         /// </summary>
         public static string getCustomer(string content){
-            string result = FindByRegex(content, @"号[^人]{2,3}：");//工商模板
-            result = result.Replace("\r","").Replace("：","").Replace("号","");
+            string result = FindByRegex(content, @"估价委托人：.{2,12}房地产估价机构：");//大报告模板
+            result = result.Replace("估价委托人：", "").Replace("房地产估价机构：", "");
             if (string.IsNullOrWhiteSpace(result))
             {
-                result = FindByRegex(content, @"对[\u4e00-\u9fa5]{2,3}所属");//中信模板
-                result = result.Replace("对","").Replace("所属","");
+                result = FindByRegex(content, @"号[^人]{2,12}：");//工商模板
+                result = result.Replace("\r", "").Replace("：", "").Replace("号", "");
+            }
+
+            if (string.IsNullOrWhiteSpace(result))
+            {
+                result = FindByRegex(content, @"对.{2,12}所属");//中信模板
+                result = result.Replace("对", "").Replace("所属", "");
             }
             return result;
         }
