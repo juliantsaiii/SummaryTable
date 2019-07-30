@@ -148,8 +148,13 @@ namespace SummaryTable.Helper
         /// 评估总价 房地产市场价值为202万元
         /// </summary>
         public static string getTotalValue(string content){
-            string result = FindByRegex(content, @"房地产市场价值为\d{2,7}万元");
-            result = result.Replace("房地产市场价值为", "").Replace("万元", "");
+            string result = FindByRegex(content, @"￥\d{2,7}万元");//大报告模板
+            result = result.Replace("￥", "").Replace("万元", "");
+            if (string.IsNullOrWhiteSpace(result))
+            {
+                result = FindByRegex(content, @"房地产市场价值为\d{2,7}万元");
+                result = result.Replace("房地产市场价值为", "").Replace("万元", "");
+            }
             return result;
         }
     }
