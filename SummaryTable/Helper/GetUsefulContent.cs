@@ -97,6 +97,11 @@ namespace SummaryTable.Helper
                 result = result.Replace("\r", "").Replace("：", "").Replace("号", "");
             }
 
+            if (string.IsNullOrWhiteSpace(result)||result.Contains("估价项目名称"))
+            {
+                result = FindByRegex(content, @"对.{2,12}所属");//中信模板
+                result = result.Replace("对", "").Replace("所属", "");
+            }
             if (string.IsNullOrWhiteSpace(result))
             {
                 result = FindByRegex(content, @"对.{2,12}所属");//中信模板
