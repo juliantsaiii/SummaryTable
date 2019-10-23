@@ -31,15 +31,16 @@
             this.RuleList = new System.Windows.Forms.ListBox();
             this.RuleName = new System.Windows.Forms.TextBox();
             this.AddRule = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // RuleList
             // 
             this.RuleList.FormattingEnabled = true;
             this.RuleList.ItemHeight = 15;
-            this.RuleList.Location = new System.Drawing.Point(51, 220);
+            this.RuleList.Location = new System.Drawing.Point(51, 102);
             this.RuleList.Name = "RuleList";
-            this.RuleList.Size = new System.Drawing.Size(180, 124);
+            this.RuleList.Size = new System.Drawing.Size(286, 304);
             this.RuleList.TabIndex = 0;
             // 
             // RuleName
@@ -58,11 +59,21 @@
             this.AddRule.Text = "添加抓取规则";
             this.AddRule.UseVisualStyleBackColor = true;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(385, 48);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(55, 15);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "label1";
+            // 
             // CustomConfiguration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.AddRule);
             this.Controls.Add(this.RuleName);
             this.Controls.Add(this.RuleList);
@@ -79,5 +90,6 @@
         private System.Windows.Forms.ListBox RuleList;
         private System.Windows.Forms.TextBox RuleName;
         private System.Windows.Forms.Button AddRule;
+        private System.Windows.Forms.Label label1;
     }
 }
