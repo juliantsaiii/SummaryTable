@@ -69,8 +69,8 @@ namespace SummaryTable.Helper
         /// 评估编号
         /// </summary>
         public static string getCode(string content){
-            string result = FindByRegex(content, @"估价报告编号：.{1,25}估价项目名称");//大报告模板
-            result = result.Replace("估价报告编号：", "").Replace("估价项目名称", "");
+            string result = FindByRegex(content, @"预评估报告苏三师预估字（2019）第.{1,25}号中信银行");//大报告模板
+            result = result.Replace("预评估报告苏三师预估字（2019）第", "").Replace("号中信银行", "");
             if (string.IsNullOrWhiteSpace(result))
             {
                 result = CommonMethod(content, "致估价委托人函", 21);//小报告
@@ -141,8 +141,8 @@ namespace SummaryTable.Helper
             result = result.Replace("￥", "").Replace("万元", "");
             if (string.IsNullOrWhiteSpace(result))
             {
-                result = FindByRegex(content, @"房地产市场价值为\d{2,7}万元");
-                result = result.Replace("房地产市场价值为", "").Replace("万元", "");
+                result = FindByRegex(content, @"市场价值为人民币\d{2,7}万元左右");
+                result = result.Replace("市场价值为人民币", "").Replace("万元左右", "");
             }
             return result;
         }
