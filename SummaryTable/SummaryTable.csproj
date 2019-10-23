@@ -71,6 +71,8 @@
     <Compile Include="Helper\CreateSummary.cs" />
     <Compile Include="Helper\GetUsefulContent.cs" />
     <Compile Include="Helper\ListToDataTableHelper.cs" />
+    <Compile Include="Helper\RegexConfigurer.cs" />
+    <Compile Include="Model\RegexRule.cs" />
     <Compile Include="Model\ReportTemplate.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
