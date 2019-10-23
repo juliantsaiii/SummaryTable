@@ -40,11 +40,11 @@ namespace SummaryTable.Helper
         public void testit()
         {
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            var mySection = config.GetSection("mySection");
-            //foreach (MySection.MyKeyValueSetting add in mySection.KeyValues)
-            //{
-            //    Console.WriteLine(string.Format("{0}-{1}", add.Key, add.Value));
-            //}
+            var mySection = config.GetSection("mySection") as SummaryTable.Helper.MySection;
+            foreach (SummaryTable.Helper.MySection.MyKeyValueSetting add in mySection.KeyValues)
+            {
+                Console.WriteLine(string.Format("{0}-{1}", add.Key, add.Value));
+            }
         }
     }
 
