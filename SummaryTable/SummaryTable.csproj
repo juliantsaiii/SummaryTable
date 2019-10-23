@@ -70,6 +70,7 @@
     <Compile Include="Helper\AppConfigurer.cs" />
     <Compile Include="Helper\CreateSummary.cs" />
     <Compile Include="Helper\GetUsefulContent.cs" />
+    <Compile Include="Helper\Infile.cs" />
     <Compile Include="Helper\ListToDataTableHelper.cs" />
     <Compile Include="Helper\RegexConfigurer.cs" />
     <Compile Include="Model\RegexRule.cs" />
