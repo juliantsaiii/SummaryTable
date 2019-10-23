@@ -63,9 +63,34 @@ namespace SummaryTable.Helper
             }
             return true;
         }
+        /// <summary>
+        /// 判断是否有该节点
+        /// </summary>
+        /// <param name="SectionName"></param>
+        /// <returns>是否</returns>
+        public bool HasSection(string SectionName)
+        {
+            List<string> Sectionlist = IniHelper.GetAllSectionNames();
+            Object obj= Sectionlist.Find(d => d == SectionName);
+            if(obj != null)
+            {
+                return true;
+            }
+            return false;
+        }
+        /// <summary>
+        /// 获取节点名列表
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetAllSectionList()
+        {
+            return IniHelper.GetAllSectionNames();
+        }
 
         public void temptest()
         {
+            HasSection("预评估2323");
+            List<string> Sectionlist = IniHelper.GetAllSectionNames();
             IniHelper.WriteString("正式报告模板", "报告编号0", "000000");
             IniHelper.WriteString("正式报告模板", "报告编号1", "111111");
             IniHelper.WriteString("正式报告模板", "报告编号2", "222222");
@@ -73,7 +98,6 @@ namespace SummaryTable.Helper
             IniHelper.WriteString("预评估", "报告编号0", "0");
             IniHelper.WriteString("预评估", "报告编号1", "1");
             IniHelper.WriteString("预评估", "报告编号2", "8888888888888");
-
             IniHelper.ReadString("预评估", "报告编号2","defalt");
         }
 

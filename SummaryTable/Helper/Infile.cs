@@ -46,6 +46,8 @@ namespace SummaryTable.Helper
             string lpString,
             string lpFileName
             );
+        [DllImport("kernel32.dll")]
+        private static extern int GetPrivateProfileSectionNames(IntPtr lpszReturnBuffer, int nSize, string filePath);
 
         /// <summary>
         /// 构造函数
@@ -150,6 +152,26 @@ namespace SummaryTable.Helper
         public void IniWriteValue(string section, string name, string value)
         {
             WritePrivateProfileString(section, name, value, this.m_FileName);
+        }
+
+        /// <summary>
+        /// 返回指定配置文件下的节名称列表
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public List<string> GetAllSectionNames()
+        {
+            List<string> sectionList = new List<string>();
+            int MAX_BUFFER = 32767;
+            IntPtr pReturnedString = Marshal.AllocCoTaskMem(MAX_BUFFER);
+            int bytesReturned = GetPrivateProfileSectionNames(pReturnedString, MAX_BUFFER, this.m_FileName);
+            if (bytesReturned != 0)
+            {
+                string local = Marshal.PtrToStringAnsi(pReturnedString, (int)bytesReturned).ToString();
+                Marshal.FreeCoTaskMem(pReturnedString);
+                sectionList.AddRange(local.Substring(0, local.Length - 1).Split('\0'));
+            }
+            return sectionList;
         }
     }
 

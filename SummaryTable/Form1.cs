@@ -21,6 +21,7 @@ namespace SummaryTable
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //new RegexConfigurer().temptest();
             this.textBox1.Text= GetFilePath();
         }
 
