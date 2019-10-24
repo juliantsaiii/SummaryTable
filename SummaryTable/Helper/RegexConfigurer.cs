@@ -64,6 +64,28 @@ namespace SummaryTable.Helper
             return true;
         }
         /// <summary>
+        /// 删除指定节点
+        /// </summary>
+        /// <param name="SectionName"></param>
+        /// <returns></returns>
+        public string RemoveRegexRule(string SectionName)
+        {
+            if (!HasSection(SectionName))
+            {
+                return "Undifined";
+            }
+            try
+            {
+                IniHelper.DeleteSection(SectionName);
+            }
+            catch (Exception)
+            {
+                return "Error";
+            }
+            return "Success";
+        }
+
+        /// <summary>
         /// 判断是否有该节点
         /// </summary>
         /// <param name="SectionName"></param>

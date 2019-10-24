@@ -8,6 +8,9 @@ namespace SummaryTable.Model
 {
     public class RegexRule
     {
+        /// 规则名称
+        /// </summary>
+        public string RuleName { get; set; }
         /// 评估编号
         /// </summary>
         public string Code { get; set; }
