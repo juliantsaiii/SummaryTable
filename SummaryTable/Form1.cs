@@ -17,6 +17,7 @@ namespace SummaryTable
         public Form1()
         {
             InitializeComponent();
+            InitialSectionSelect();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -80,6 +81,15 @@ namespace SummaryTable
         private void button3_Click(object sender, EventArgs e)
         {
             this.textBox2.Clear();
+        }
+        /// <summary>
+        /// 初始化模板下拉框
+        /// </summary>
+        private void InitialSectionSelect()
+        {
+            RegexConfigurer myRegexConfigurer = new RegexConfigurer();
+            string[] sectionNames = myRegexConfigurer.GetAllSectionList().ToArray();
+            this.SectionSelect.Items.AddRange(sectionNames);
         }
     }
 }

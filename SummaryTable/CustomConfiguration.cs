@@ -191,7 +191,7 @@ namespace SummaryTable
         private bool judgeRegex(string content)
         {
             //未能正确读取__(n,m)__委托方名称
-            string regexPattern = @"__\(\d,\d\)__";
+            string regexPattern = @"__\(\d{1,2},\d{1,2}\)__";
             string result = Regex.Match(content, regexPattern).Value;
             if (string.IsNullOrEmpty(result))
             {
