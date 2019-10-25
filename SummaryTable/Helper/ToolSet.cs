@@ -87,8 +87,9 @@ namespace SummaryTable.Helper
         /// 抓取word中的文本信息并汇总至表格内
         /// </summary>
         /// <param name="wordlist"></param>
-        public static string StartSummary(List<FileInfo> wordlist)
+        public static string StartSummary(List<FileInfo> wordlist,string SectionName)
         {
+            HouseConfigHelper.ReadConfig();//读取配置文件信息
             workinfo = "\r\n详情：\r\n";
             WordHelper wordHelper = new WordHelper();
             List<ReportTemplate> reportlist = new List<ReportTemplate>();//报告抓取结果集合
@@ -102,7 +103,7 @@ namespace SummaryTable.Helper
                     wordContent = wordContent.Replace("\n", "").Replace(" ", "").Replace("\t", "").Replace("\r", "");//去除字符串中的空格，回车，换行符，制表符
                     if (wordContent.Length > 10)//过滤打开的运行时文件或不正常文件
                     {
-                        ReportTemplate report = GetEntityValue(wordContent);
+                        ReportTemplate report = GetEntityValue(wordContent, SectionName);
                         report.ID = SuccessCount.ToString();//ID作为计数器使用
                         reportlist.Add(report);
                         workinfo += $"{SuccessCount}:{wordinfo.Name}报告制作成功\r\n";
@@ -129,10 +130,9 @@ namespace SummaryTable.Helper
         /// </summary>
         /// <param name="content">word字符流</param>
         /// <returns></returns>
-        public static ReportTemplate GetEntityValue(string content)
+        public static ReportTemplate GetEntityValue(string content,string SectionName)
         {
             ReportTemplate report = new ReportTemplate();
-            HouseConfigHelper.ReadConfig();//读取配置文件信息
             //固定信息回填
             report.IssuanceDate = HouseConfigHelper.IssuanceDate;
             report.ProjectProperty = HouseConfigHelper.ProjectProperty;
@@ -145,6 +145,7 @@ namespace SummaryTable.Helper
             report.ProjectUndertaker = HouseConfigHelper.ProjectUndertaker;
             report.ProjectSource = HouseConfigHelper.ProjectSource;
             //抓取信息回填
+            GetUsefulContent.ReflushRegex(SectionName);//刷新配置信息
             report.Code = GetUsefulContent.getCode(content);
             report.ValueTime = GetUsefulContent.getValueTime(content);
             report.Customer = GetUsefulContent.getCustomer(content);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SummaryTable.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,105 @@ namespace SummaryTable.Helper
     public static class GetUsefulContent
     {
 
+        public static RegexWord regexWord;
+        public static RegexRule regexRule;
+        /// <summary>
+        /// 刷新配置文件规则
+        /// </summary>
+        /// <param name="sectionName"></param>
+        public static void ReflushRegex(string sectionName)
+        {
+            RegexConfigurer regexConfigurer = new RegexConfigurer();
+            regexRule = regexConfigurer.GetRegexRule(sectionName);
+            regexWord = getRegexWord(sectionName);
+        }
+
+        /// <summary>
+        /// 评估编号
+        /// </summary>
+        public static string getCode(string content){
+            string result = FindByRegex(content, regexWord.Code);
+            result = result.Replace(getStartAndEnd(regexRule.Code)[0], "").Replace(getStartAndEnd(regexRule.Code)[1], "");
+            return result;
+        }
+        /// <summary>
+        /// 价值时点
+        /// </summary>
+        public static string getValueTime(string content){
+            string result = FindByRegex(content, regexWord.ValueTime);
+            result = result.Replace(getStartAndEnd(regexRule.ValueTime)[0], "").Replace(getStartAndEnd(regexRule.ValueTime)[1], "");
+            result = TimeConvert(result);
+            return result;
+        }
+        /// <summary>
+        /// 委托方名称
+        /// </summary>
+        public static string getCustomer(string content){
+            string result = FindByRegex(content, regexWord.Customer);
+            result = result.Replace(getStartAndEnd(regexRule.Customer)[0], "").Replace(getStartAndEnd(regexRule.Customer)[1], "");
+            return result;
+        }
+        /// <summary>
+        /// 项目坐落
+        /// </summary>
+        public static string getLocation(string content){
+            string result = FindByRegex(content, regexWord.Location);
+            result = result.Replace(getStartAndEnd(regexRule.Location)[0], "").Replace(getStartAndEnd(regexRule.Location)[1], "");
+            return result;
+        }
+        /// <summary>
+        /// 建筑面积
+        /// </summary>
+        public static string getArchitecherArea(string content){
+            string result = FindByRegex(content, regexWord.ArchitecherArea);
+            result = result.Replace(getStartAndEnd(regexRule.ArchitecherArea)[0], "").Replace(getStartAndEnd(regexRule.ArchitecherArea)[1], "");
+            return result;
+        }
+        /// <summary>
+        /// 评估单价
+        /// </summary>
+        public static string getSingleValue(string content){
+            string result = FindByRegex(content, regexWord.SingleValue);
+            result = result.Replace(getStartAndEnd(regexRule.SingleValue)[0], "").Replace(getStartAndEnd(regexRule.SingleValue)[1], "");
+            return result;
+        }
+        /// <summary>
+        /// 评估总价 房地产市场价值为202万元
+        /// </summary>
+        public static string getTotalValue(string content)
+        {
+            string result = FindByRegex(content, regexWord.TotalValue);
+            result = result.Replace(getStartAndEnd(regexRule.TotalValue)[0], "").Replace(getStartAndEnd(regexRule.TotalValue)[1], "");
+            return result;
+        }
+
+        public static RegexWord getRegexWord(string sectionName)
+        {
+            RegexWord regexWord = new RegexWord();
+            regexWord.Code = RegexAnalysis(regexRule.Code);
+            regexWord.ValueTime = RegexAnalysis(regexRule.ValueTime);
+            regexWord.Customer = RegexAnalysis(regexRule.Customer);
+            regexWord.Location = RegexAnalysis(regexRule.Location);
+            regexWord.ArchitecherArea = RegexAnalysis(regexRule.ArchitecherArea);
+            regexWord.SingleValue = RegexAnalysis(regexRule.SingleValue);
+            regexWord.TotalValue = RegexAnalysis(regexRule.TotalValue);
+            return regexWord;
+        }
+        public static string RegexAnalysis(string singleRule)
+        {
+            string[] temp = Regex.Split(singleRule, "__");
+            string result = temp[0] + "." + temp[1] + temp[2];
+            return result;
+        }
+        public static string[] getStartAndEnd(string singleRule)
+        {
+            //前缀__{6,7}__后缀
+            string[] temp = Regex.Split(singleRule, "__");
+            string[] startAndEnd = new string[2];
+            startAndEnd[0] = temp[0];
+            startAndEnd[1] = temp[2];
+            return startAndEnd;
+        }
         /// <summary>
         /// 通过特定字符串及截取长度获取目标字符串
         /// </summary>
@@ -20,7 +120,7 @@ namespace SummaryTable.Helper
         /// <param name="StartChars">特定字符串</param>
         /// <param name="Length">截取长度</param>
         /// <returns>目标字符串</returns>
-        public static string CommonMethod(string content,string StartChars,int Length)
+        public static string CommonMethod(string content, string StartChars, int Length)
         {
             if (content.IndexOf(StartChars) < 0)
             {
@@ -46,6 +146,10 @@ namespace SummaryTable.Helper
         {
             char[] separators = { '年', '月', '日' };
             string[] content = OriginTime.Split(separators);
+            if (content.Length < 3)
+            {
+                return "";
+            }
             string YYYY = content[0];
             string MM = content[1];
             string DD = content[2];
@@ -59,87 +163,11 @@ namespace SummaryTable.Helper
         /// <param name="content">全文字符串</param>
         /// <param name="regexPattern">正则表达式</param>
         /// <returns></returns>
-        public static string FindByRegex(string content,string regexPattern)
+        public static string FindByRegex(string content, string regexPattern)
         {
             Match match = Regex.Match(content, regexPattern);
             return match.Value;
         }
 
-        /// <summary>
-        /// 评估编号
-        /// </summary>
-        public static string getCode(string content){
-            string result = FindByRegex(content, @"估价报告编号：.{1,25}估价项目名称");//大报告模板
-            result = result.Replace("估价报告编号：", "").Replace("估价项目名称", "");
-            if (string.IsNullOrWhiteSpace(result))
-            {
-                result = CommonMethod(content, "致估价委托人函", 21);//小报告
-            }
-            return result;
-        }
-        /// <summary>
-        /// 价值时点
-        /// </summary>
-        public static string getValueTime(string content){
-            string result = CommonMethod(content, "价值时点为", 11);
-            result = TimeConvert(result);
-            return result;
-        }
-        /// <summary>
-        /// 委托方名称
-        /// </summary>
-        public static string getCustomer(string content){
-            string result = FindByRegex(content, @"估价委托人：.{2,12}房地产估价机构：");//大报告模板
-            result = result.Replace("估价委托人：", "").Replace("房地产估价机构：", "");
-            if (string.IsNullOrWhiteSpace(result))
-            {
-                result = FindByRegex(content, @"号[^人]{2,12}：");//工商模板
-                result = result.Replace("\r", "").Replace("：", "").Replace("号", "");
-            }
-
-            if (string.IsNullOrWhiteSpace(result))
-            {
-                result = FindByRegex(content, @"对.{2,12}所属");//中信模板
-                result = result.Replace("对", "").Replace("所属", "");
-            }
-            return result;
-        }
-        /// <summary>
-        /// 项目坐落
-        /// </summary>
-        public static string getLocation(string content){
-            string result = FindByRegex(content, @"位于.{10,40}住宅房地产");
-            result = result.Replace("位于", "").Replace("住宅房地产", "");
-            return result;
-        }
-        /// <summary>
-        /// 建筑面积
-        /// </summary>
-        public static string getArchitecherArea(string content){
-            string result = FindByRegex(content, @"建筑面积为.{2,7}平方米");
-            result = result.Replace("建筑面积为", "").Replace("平方米", "");
-            return result;
-        }
-        /// <summary>
-        /// 评估单价
-        /// </summary>
-        public static string getSingleValue(string content){
-            string result = FindByRegex(content, @"单位面积价格为\d{2,7}元/m2");
-            result = result.Replace("单位面积价格为", "").Replace("元/m2", "");
-            return result;
-        }
-        /// <summary>
-        /// 评估总价 房地产市场价值为202万元
-        /// </summary>
-        public static string getTotalValue(string content){
-            string result = FindByRegex(content, @"￥\d{2,7}万元");//大报告模板
-            result = result.Replace("￥", "").Replace("万元", "");
-            if (string.IsNullOrWhiteSpace(result))
-            {
-                result = FindByRegex(content, @"房地产市场价值为\d{2,7}万元");
-                result = result.Replace("房地产市场价值为", "").Replace("万元", "");
-            }
-            return result;
-        }
     }
 }

@@ -91,7 +91,7 @@ namespace SummaryTable
             }
             else
             {
-                MessageBox.Show("格式请参照（*****__(n,m)__******），\r\n【*】部分为前后内容，【n】匹配对象最短长度，【m】为匹配对象最长长度", "匹配规则不规范", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("格式请参照（*****__{n,m}__******），\r\n【*】部分为前后内容，【n】匹配对象最短长度，【m】为匹配对象最长长度", "匹配规则不规范", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -191,7 +191,7 @@ namespace SummaryTable
         private bool judgeRegex(string content)
         {
             //未能正确读取__(n,m)__委托方名称
-            string regexPattern = @"__\(\d{1,2},\d{1,2}\)__";
+            string regexPattern = @"__\{\d{1,2},\d{1,2}\}__";
             string result = Regex.Match(content, regexPattern).Value;
             if (string.IsNullOrEmpty(result))
             {

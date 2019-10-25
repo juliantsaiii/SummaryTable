@@ -66,11 +66,19 @@ namespace SummaryTable
                 }
             }
             this.textBox2.AppendText($"共计{wordlist.Count()}个\r\n");
-
-            //调用汇总方法
-            string workinfo = ToolSet.StartSummary(wordlist);
-            this.textBox2.AppendText(workinfo);
-            //this.textBox2.AppendText(ToolSet.information);
+            if (this.SectionSelect.SelectedItem ==null)
+            {
+                MessageBox.Show("请选择规则模板！", "未选择模板！", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            else
+            {
+                string SectionName = this.SectionSelect.SelectedItem.ToString();
+                //调用汇总方法
+                string workinfo = ToolSet.StartSummary(wordlist, SectionName);
+                this.textBox2.AppendText(workinfo);
+                //this.textBox2.AppendText(ToolSet.information);
+            }
         }
 
         /// <summary>
