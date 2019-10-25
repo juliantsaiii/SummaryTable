@@ -31,6 +31,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.Form1 = new System.Windows.Forms.ToolStripMenuItem();
             this.CustomConfiguration = new System.Windows.Forms.ToolStripMenuItem();
+            this.Reward = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.panel = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
@@ -41,7 +42,8 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Form1,
-            this.CustomConfiguration});
+            this.CustomConfiguration,
+            this.Reward});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(821, 28);
@@ -61,6 +63,13 @@
             this.CustomConfiguration.Size = new System.Drawing.Size(83, 24);
             this.CustomConfiguration.Text = "配置界面";
             this.CustomConfiguration.Click += new System.EventHandler(this.CustomConfiguration_Click);
+            // 
+            // Reward
+            // 
+            this.Reward.Name = "Reward";
+            this.Reward.Size = new System.Drawing.Size(113, 24);
+            this.Reward.Text = "请作者喝杯茶";
+            this.Reward.Click += new System.EventHandler(this.Reward_Click);
             // 
             // statusStrip1
             // 
@@ -103,5 +112,6 @@
         private System.Windows.Forms.ToolStripMenuItem CustomConfiguration;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.Panel panel;
+        private System.Windows.Forms.ToolStripMenuItem Reward;
     }
 }

@@ -47,5 +47,16 @@ namespace SummaryTable
             panel.Controls.Add(configurationForm);
             configurationForm.Show();
         }
+
+        private void Reward_Click(object sender, EventArgs e)
+        {
+            Reward reward = new Reward();
+            reward.TopLevel = false;
+            reward.Dock = DockStyle.Fill;
+            reward.FormBorderStyle = FormBorderStyle.None;
+            panel.Controls.Clear();
+            panel.Controls.Add(reward);
+            reward.Show();
+        }
     }
 }
