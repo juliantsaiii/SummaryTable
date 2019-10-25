@@ -109,8 +109,8 @@ namespace SummaryTable.Helper
             //前缀__{6,7}__后缀
             string[] temp = Regex.Split(singleRule, "__");
             string[] startAndEnd = new string[2];
-            startAndEnd[0] = temp[0];
-            startAndEnd[1] = temp[2];
+            startAndEnd[0] = temp[0] == "" ? "蔡宗麟大帅逼" : temp[0] ;
+            startAndEnd[1] = temp[2] == "" ? "蔡宗麟大帅逼" : temp[0];
             return startAndEnd;
         }
         /// <summary>
