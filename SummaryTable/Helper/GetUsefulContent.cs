@@ -110,7 +110,7 @@ namespace SummaryTable.Helper
             string[] temp = Regex.Split(singleRule, "__");
             string[] startAndEnd = new string[2];
             startAndEnd[0] = temp[0] == "" ? "蔡宗麟大帅逼" : temp[0] ;
-            startAndEnd[1] = temp[2] == "" ? "蔡宗麟大帅逼" : temp[0];
+            startAndEnd[1] = temp[2] == "" ? "蔡宗麟大帅逼" : temp[2];
             return startAndEnd;
         }
         /// <summary>
