@@ -105,6 +105,11 @@ namespace SummaryTable.Helper
                     {
                         ReportTemplate report = GetEntityValue(wordContent, SectionName);
                         report.ID = SuccessCount.ToString();//ID作为计数器使用
+                        //添加出具日期
+                        int year = wordinfo.LastWriteTime.Year;
+                        int month = wordinfo.LastWriteTime.Month;
+                        int day = wordinfo.LastWriteTime.Day;
+                        report.IssuanceDate = year + "/" + month + "/" + day;
                         reportlist.Add(report);
                         workinfo += $"{SuccessCount}:{wordinfo.Name}报告制作成功\r\n";
                         SuccessCount++;
