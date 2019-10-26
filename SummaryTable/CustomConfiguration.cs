@@ -55,13 +55,13 @@ namespace SummaryTable
             }
             else
             {
-                this.CodeRegex.Text = "前缀__(n,m)__后缀";
-                this.ValueTimeRegex.Text = "前缀__(n,m)__后缀";
-                this.CustomerRegex.Text = "前缀__(n,m)__后缀";
-                this.LocationRegex.Text = "前缀__(n,m)__后缀";
-                this.ArchitecherAreaRegex.Text = "前缀__(n,m)__后缀";
-                this.SingleValueRegex.Text = "前缀__(n,m)__后缀";
-                this.TotalValueRegex.Text = "前缀__(n,m)__后缀";
+                this.CodeRegex.Text = "前缀__{2,30}__后缀";
+                this.ValueTimeRegex.Text = "前缀__{2,30}__后缀";
+                this.CustomerRegex.Text = "前缀__{2,30}__后缀";
+                this.LocationRegex.Text = "前缀__{2,30}__后缀";
+                this.ArchitecherAreaRegex.Text = "前缀__{2,30}__后缀";
+                this.SingleValueRegex.Text = "前缀__{2,30}__后缀";
+                this.TotalValueRegex.Text = "前缀__{2,30}__后缀";
             }
         }
 

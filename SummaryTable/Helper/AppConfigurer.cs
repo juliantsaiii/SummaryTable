@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
+using SummaryTable.Model;
 
 namespace SummaryTable.Helper
 {
@@ -66,8 +67,24 @@ namespace SummaryTable.Helper
             ProjectUndertaker = ConfigurationManager.AppSettings["ProjectUndertaker"];
             ProjectSource = ConfigurationManager.AppSettings["ProjectSource"];
         }
+
+        public static void UpdateHouseConfig(PersonConfigVM personConfigVM)
+        {
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.AppSettings.Settings["IssuanceDate"].Value = personConfigVM.IssuanceDate;
+            config.AppSettings.Settings["ProjectProperty"].Value = personConfigVM.ProjectProperty;
+            config.AppSettings.Settings["PurposeOfValuation"].Value = personConfigVM.PurposeOfValuation;
+            config.AppSettings.Settings["MethodOfValuation"].Value = personConfigVM.MethodOfValuation;
+            config.AppSettings.Settings["LandArea"].Value = personConfigVM.LandArea;
+            config.AppSettings.Settings["Auditors"].Value = personConfigVM.Auditors;
+            config.AppSettings.Settings["Valuer"].Value = personConfigVM.Valuer;
+            config.AppSettings.Settings["ProjectUndertaker"].Value = personConfigVM.ProjectUndertaker;
+            config.AppSettings.Settings["ProjectSource"].Value = personConfigVM.ProjectSource;
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
+        }
     }
-    public class RuleConfigHelper
+    public static class RuleConfigHelper
     {
         //以下条件为或条件
         /// <summary>
@@ -86,6 +103,14 @@ namespace SummaryTable.Helper
         {
             FileName1 = ConfigurationManager.AppSettings["FileName1"];
             FileName2 = ConfigurationManager.AppSettings["FileName2"];
+        }
+        public static void UpdateRuleConfig(PersonConfigVM personConfigVM)
+        {
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.AppSettings.Settings["FileName1"].Value = personConfigVM.FileName1;
+            config.AppSettings.Settings["FileName2"].Value = personConfigVM.FileName2;
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
         }
     }
 }

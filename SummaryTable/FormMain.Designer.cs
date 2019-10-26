@@ -32,6 +32,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.Form1 = new System.Windows.Forms.ToolStripMenuItem();
             this.CustomConfiguration = new System.Windows.Forms.ToolStripMenuItem();
+            this.RuleConfig = new System.Windows.Forms.ToolStripMenuItem();
+            this.PersonConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.Reward = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.panel = new System.Windows.Forms.Panel();
@@ -60,10 +62,26 @@
             // 
             // CustomConfiguration
             // 
+            this.CustomConfiguration.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.RuleConfig,
+            this.PersonConfig});
             this.CustomConfiguration.Name = "CustomConfiguration";
             this.CustomConfiguration.Size = new System.Drawing.Size(83, 24);
             this.CustomConfiguration.Text = "配置界面";
-            this.CustomConfiguration.Click += new System.EventHandler(this.CustomConfiguration_Click);
+            // 
+            // RuleConfig
+            // 
+            this.RuleConfig.Name = "RuleConfig";
+            this.RuleConfig.Size = new System.Drawing.Size(224, 26);
+            this.RuleConfig.Text = "抓取规则";
+            this.RuleConfig.Click += new System.EventHandler(this.RuleConfig_Click);
+            // 
+            // PersonConfig
+            // 
+            this.PersonConfig.Name = "PersonConfig";
+            this.PersonConfig.Size = new System.Drawing.Size(224, 26);
+            this.PersonConfig.Text = "固定信息";
+            this.PersonConfig.Click += new System.EventHandler(this.PersonConfig_Click);
             // 
             // Reward
             // 
@@ -115,5 +133,7 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.ToolStripMenuItem Reward;
+        private System.Windows.Forms.ToolStripMenuItem RuleConfig;
+        private System.Windows.Forms.ToolStripMenuItem PersonConfig;
     }
 }

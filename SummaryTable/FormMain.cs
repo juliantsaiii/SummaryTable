@@ -37,7 +37,18 @@ namespace SummaryTable
             form1.Show();
         }
 
-        private void CustomConfiguration_Click(object sender, EventArgs e)
+        private void Reward_Click(object sender, EventArgs e)
+        {
+            Reward reward = new Reward();
+            reward.TopLevel = false;
+            reward.Dock = DockStyle.Fill;
+            reward.FormBorderStyle = FormBorderStyle.None;
+            panel.Controls.Clear();
+            panel.Controls.Add(reward);
+            reward.Show();
+        }
+
+        private void RuleConfig_Click(object sender, EventArgs e)
         {
             CustomConfiguration configurationForm = new CustomConfiguration();
             configurationForm.TopLevel = false;
@@ -48,15 +59,15 @@ namespace SummaryTable
             configurationForm.Show();
         }
 
-        private void Reward_Click(object sender, EventArgs e)
+        private void PersonConfig_Click(object sender, EventArgs e)
         {
-            Reward reward = new Reward();
-            reward.TopLevel = false;
-            reward.Dock = DockStyle.Fill;
-            reward.FormBorderStyle = FormBorderStyle.None;
+            PersonConfig personconfigform = new PersonConfig();
+            personconfigform.TopLevel = false;
+            personconfigform.Dock = DockStyle.Fill;
+            personconfigform.FormBorderStyle = FormBorderStyle.None;
             panel.Controls.Clear();
-            panel.Controls.Add(reward);
-            reward.Show();
+            panel.Controls.Add(personconfigform);
+            personconfigform.Show();
         }
     }
 }

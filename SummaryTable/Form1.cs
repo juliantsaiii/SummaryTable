@@ -47,7 +47,6 @@ namespace SummaryTable
         private void button2_Click(object sender, EventArgs e)
         {
             //得到报告筛选规则
-            RuleConfigHelper ruleConfigHelper = new RuleConfigHelper();
             RuleConfigHelper.ReadConfig();
 
             //wordlist用于存储评估报告文档文件信息集合
