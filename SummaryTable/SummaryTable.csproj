@@ -37,7 +37,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Lib\Aspose.Cells.dll</HintPath>
     </Reference>
-    <Reference Include="Aspose.Words, Version=9.7.0.0, Culture=neutral, PublicKeyToken=586edb5723016262, processorArchitecture=MSIL">
+    <Reference Include="Aspose.Words, Version=13.2.0.0, Culture=neutral, PublicKeyToken=00725b1ceb58d0a9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Lib\Aspose.Words.dll</HintPath>
     </Reference>
