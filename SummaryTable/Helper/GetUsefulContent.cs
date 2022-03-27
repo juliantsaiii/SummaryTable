@@ -89,26 +89,49 @@ namespace SummaryTable.Helper
         /// 委托方名称
         /// </summary>
         public static string getCustomer(string content){
-            string result = FindByRegex(content, @"估价委托人：.{2,12}房地产估价机构：");//大报告模板
-            result = result.Replace("估价委托人：", "").Replace("房地产估价机构：", "");
-            if (string.IsNullOrWhiteSpace(result))
+            string result = "";
+            //大报告模板
+            if (string.IsNullOrWhiteSpace(result) && content.Contains("房地产抵押估价报告"))
             {
-                result = FindByRegex(content, @"号[^人]{2,12}：");//工商模板
-                result = result.Replace("\r", "").Replace("：", "").Replace("号", "");
+                result = FindByRegex(content, @"对.{2,12}位于");
+                result = result.Replace("对", "").Replace("位于", "");
             }
+            //工商报告单
+            if (string.IsNullOrWhiteSpace(result) && content.Contains("工商银行"))
+            {
+                result = FindByRegex(content, @"对.{2,12}位于");
+                result = result.Replace("对", "").Replace("位于", "");
+            }
+            //中信报告单
+            if (string.IsNullOrWhiteSpace(result) && content.Contains("中信银行"))
+            {
+                result = FindByRegex(content, @"对.{2,12}所属");
+                result = result.Replace("对", "").Replace("所属", "");
+            }
+            result = result.Replace("所属", "");
+            return result;
+        }
 
-            if (string.IsNullOrWhiteSpace(result)||result.Contains("估价项目名称"))
+        /// <summary>
+        /// 项目来源
+        /// </summary>
+        public static string getProjectSource(string content)
+        {
+            string result = "";
+            //大报告模板
+            if (string.IsNullOrWhiteSpace(result) && content.Contains("房地产抵押估价报告"))
             {
-                result = FindByRegex(content, @"对.{2,12}所属");//中信模板
-                result = result.Replace("对", "").Replace("所属", "");
+                result = FindByRegex(content, @"估价委托人：.{10,16}房地产估价机构");
+                result = result.Replace("估价委托人：", "").Replace("房地产估价机构", "");
             }
-            if (string.IsNullOrWhiteSpace(result))
+            if (string.IsNullOrWhiteSpace(result) )
             {
-                result = FindByRegex(content, @"对.{2,12}所属");//中信模板
-                result = result.Replace("对", "").Replace("所属", "");
+                result = FindByRegex(content, @"号.{10,16}：");
+                result = result.Replace("号", "").Replace("：", "");
             }
             return result;
         }
+
         /// <summary>
         /// 项目坐落
         /// </summary>

@@ -149,7 +149,6 @@ namespace SummaryTable.Helper
             report.Evaluator = HouseConfigHelper.Evaluator;
             report.Valuer = HouseConfigHelper.Valuer;
             report.ProjectUndertaker = HouseConfigHelper.ProjectUndertaker;
-            report.ProjectSource = HouseConfigHelper.ProjectSource;
             //抓取信息回填
             report.Code = GetUsefulContent.getCode(content);
             report.ValueTime = GetUsefulContent.getValueTime(content);
@@ -158,6 +157,7 @@ namespace SummaryTable.Helper
             report.ArchitecherArea = GetUsefulContent.getArchitecherArea(content);
             report.SingleValue = GetUsefulContent.getSingleValue(content);
             report.TotalValue = GetUsefulContent.getTotalValue(content);
+            report.ProjectSource = GetUsefulContent.getProjectSource(content);
             return report;
         }
 
